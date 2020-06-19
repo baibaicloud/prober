@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+    <title>百百-关机</title>
+
+    <!-- CSS  -->
+    <link href="../css/icon.css" rel="stylesheet">
+    <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+</head>
+
+<body style="overflow: hidden;" oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+
+    <div>
+        <div class="row">
+            <div class="col s12 m6">
+                <div class="card" style="margin:0px;">
+                    <div class="card-image">
+                        <img src="../img/one.jpg">
+                        <a class="btn-floating btn-big halfway-fab waves-effect waves-light red"><i onclick="shutdownWin.cancelShutdown()" class="material-icons" title="点击取消关闭计算机">close</i></a>
+                    </div>
+                    <div class="card-content center-align" style="height: 180px; padding-top: 50px;">
+                        <p>计算机即将自动关机</p>
+                        <p>倒计时 <span id="shutdown-downcount" style="color: red;">60</span> 秒</p>
+                        <p>如果想取消，请点击<span style="color: red;">[红色]</span>按钮取消</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>window.$ = window.jQuery = require('../js/jquery-2.1.1.min.js') </script>
+    <script src="../js/jquery.aop.min.js"></script>
+    <script src="../js/materialize.js"></script>
+    <script src="../js/util.js"></script>
+    <script src="../js/http.js"></script>
+    <script>
+
+        var shutdownWin = {
+            iscancel: false,
+            downcount: window.localStorage.showWindowShutdownSeconds,
+            init: function () {
+                shutdownWin.handlerShutdown();
+            },
+            handlerShutdown: function () {
+                if (shutdownWin.iscancel) {
+                    return;
+                }
+                if (shutdownWin.downcount < 1) {
+                    require('child_process').exec("shutdown.exe -s -t 00");
+                    return;
+                }
+
+                $("#shutdown-downcount").html(shutdownWin.downcount);
+                shutdownWin.downcount--;
+                setTimeout(function () {
+                    shutdownWin.handlerShutdown();
+                }, 1000);
+            },
+            cancelShutdown: function () {
+                window.close();
+            }
+        }
+
+        $(function () {
+            shutdownWin.init();
+        });
+    </script>
+
+</body>
+
+</html>
