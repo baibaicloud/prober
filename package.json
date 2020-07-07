@@ -18,7 +18,7 @@
   "author": "baibaicloud",
   "license": "Apache-2.0",
   "devDependencies": {
-    "electron": "7.1.4"
+    "electron": "9.1.0"
   },
   "dependencies": {
     "electron-config": "2.0.0",
