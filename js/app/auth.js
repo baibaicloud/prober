@@ -24,8 +24,10 @@ var authObj = {
         $("#active-face-type").html("sentiment_very_dissatisfied");
         $("#active-face-type").css("color", "red");
 
+        var url = window.appinfo.rooturl + 'capi/client/login';
+        console.log('reload url:' + url);
         $.httpSend({
-            url: window.appinfo.rooturl + 'capi/client/login',
+            url,
             type: 'post',
             data: JSON.stringify({
                 sn: window.appinfo.sn
@@ -57,8 +59,10 @@ var authObj = {
      * @param {*} callback 
      */
     login: function (callback) {
+        var url = window.appinfo.rooturl + 'capi/client/login';
+        console.log('login url:' + url);
         $.httpSend({
-            url: window.appinfo.rooturl + 'capi/client/login',
+            url,
             type: 'post',
             data: JSON.stringify({
                 sn: window.appinfo.sn

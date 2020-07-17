@@ -50,6 +50,10 @@ function createWindow() {
     app.setLoginItemSettings({ openAtLogin: arg, openAsHidden: true });
   })
 
+  ipcMain.on('event-open-devtools', (event, arg) => {
+    mainWindow.webContents.openDevTools({ mode: 'detach' });
+  })
+
   tray = new Tray(__dirname + "/icon.ico");
   const contextMenu = Menu.buildFromTemplate([
     {

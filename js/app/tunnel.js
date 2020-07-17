@@ -85,6 +85,12 @@ var tunnelObj = {
     initfrp: function () {
         console.log('init frp');
         tunnelObj.isfast = true;
+
+        if (!window.appinfo.server_info) {
+            console.log('server_info is null so skip initfrp');
+            return;
+        }
+
         window.appruntime.stopLib('loontunnelfrpc', () => {
             const nowlist = new Array(8);
             nowlist.push('[common]');

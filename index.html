@@ -132,16 +132,21 @@
               <span>开机自启动</span>
             </label>
           </p>
+          <div class="input-field s12">
+            <input id="seeting-server-host" type="text">
+            <label for="seeting-server-host" class="">服务器地址</label>
+          </div>
         </form>
       </div>
       <div id="sidenav-authlist" class="col s12" style="padding: 10px;">
         <div>已授权服务器列表</div>
         <div style="margin-top: 5px;" id="setting-auth-server-list"></div>
       </div>
-      <div id="sidenav-about" class="col s12" style="padding: 10px;">
+      <div id="sidenav-about" class="col s12" style="padding: 10px; text-align: center;">
         <p>本产品开源免费使用，持续更新。使用过程如果有问题请到GitHub进行提交BUG。</p>
         <i id="setting-github-url" style="color:#2196F3; cursor: pointer;">点击打开官方GitHub</i>
         <p>版本:V1.0.0</p>
+        <button onclick="settingsObj.opendevtools()" class="hide waves-effect waves-light btn-small">打开调试工具</button>
       </div>
     </div>
   </div>

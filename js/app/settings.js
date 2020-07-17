@@ -5,10 +5,17 @@ var settingsObj = {
             window.appruntime.openurl("https://github.com/baibaicloud/prober");
         });
     },
+    opendevtools: function () {
+        window.appruntime.opendevtools();
+    },
     closePanel: function () {
         $('.sidenav').sidenav('close');
     },
     showPanel: function () {
+
+        $("#seeting-server-host").val(window.appinfo.rooturl);
+        M.updateTextFields();
+
         $('#slide-out-tabs').tabs('select', 'sidenav-setting');
         $.httpSend({
             url: window.appinfo.rooturl + 'capi/client/commons',
@@ -29,9 +36,39 @@ var settingsObj = {
                 settingsObj.makeAuthServerList(resp.content);
             }
         });
+
+        $("#seeting-server-host").blur(settingsObj.updateRootUrl);
+    },
+    updateRootUrl: function () {
+        var url = $("#seeting-server-host").val();
+
+        if (!url) {
+            $("#seeting-server-host").val(window.appinfo.rooturl);
+            M.updateTextFields();
+            return;
+        }
+
+        if (url === window.appinfo.rooturl) {
+            return;
+        }
+
+        if (!$.isurl(url)) {
+            $("#seeting-server-host").val(window.appinfo.rooturl);
+            M.updateTextFields();
+            M.toast({ html: 'URL格式错误' });
+            return;
+        }
+
+        var liststr = url.substring(url.length - 1, url.length);
+        if (liststr !== "/") {
+            $("#seeting-server-host").val(url + "/");
+        }
+
+        window.appruntime.setRootUrl($("#seeting-server-host").val());
+        M.toast({ html: '更新成功' });
     },
     makeAuthServerList: function (list) {
-        if (list.length == 0) {
+        if (list.length === 0) {
             $("#setting-auth-server-list").html("<h6>暂无</h6>");
             return;
         }

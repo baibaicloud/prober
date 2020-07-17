@@ -15,7 +15,7 @@ const rooturl = 'http://192.168.0.100:8080/';
 window.addEventListener('DOMContentLoaded', () => {
 
   // log path %USERPROFILE%\AppData\Roaming\{app name}\logs\{process type}.log
-  // console.log = log.log;
+  console.log = log.log;
   log.transports.file.level = true;
 
   if (!config.get('log_console_level')) {
@@ -49,8 +49,8 @@ window.addEventListener('DOMContentLoaded', () => {
     ostype: os.platform(),
     hostname: os.hostname(),
     sn: machineIdSync(),
-    rooturl,
     apppath: __dirname,
+    rooturl: config.get('rooturl'),
     frp_admin_addr: config.get('frp_admin_addr'),
     frp_admin_port: config.get('frp_admin_port'),
     frp_check_admin_address: config.get('frp_check_admin_address'),
@@ -74,6 +74,14 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 
 window.appruntime = {
+  opendevtools() {
+    ipcRenderer.send('event-open-devtools', '');
+  },
+  setRootUrl(url) {
+    config.set('rooturl', url);
+    console.log(window.appinfo.rooturl, url);
+    window.appinfo.rooturl = url;
+  },
   setAutorun(flag) {
     config.set('is_auto_run', flag ? "true" : "false");
     ipcRenderer.send('event-set-auto-run', flag);
