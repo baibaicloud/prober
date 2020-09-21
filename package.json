@@ -1,0 +1,28 @@
+{
+  "name": "prober",
+  "version": "1.1.0",
+  "description": "基于web的远程控制，无任何插件。协议支持vnc，rdp，ssh。支持内外穿透、四层协议代理。",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/baibaicloud/prober.git",
+  "keywords": [
+    "远程控制",
+    "VNC",
+    "RDP",
+    "SSH",
+    "四层协议代理"
+  ],
+  "author": "baibaicloud",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "electron": "10.1.1"
+  },
+  "dependencies": {
+    "electron-config": "2.0.0",
+    "electron-log": "4.2.4",
+    "md5": "2.3.0",
+    "node-machine-id": "1.1.12"
+  }
+}

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+  <title>百百-主页</title>
+  <!-- CSS  -->
+  <link href="./css/icon.css" rel="stylesheet">
+  <link href="./css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+  <link href="./css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+</head>
+
+<body>
+
+  <!-- 菜单 -->
+  <div style="background-color: #e0f2f1; width: 100%; height: 35px; padding-right: 10px; padding-top: 5px; -webkit-app-region: drag;">
+    <div style="position: absolute; left: 10px; top: 7px; color:#2196F3;">
+      百百
+    </div>
+    <div class="right-align">
+      <i id="newaddauth-modal-btn" title="设备授权" href="#newaddauth-modal" class="modal-trigger" style="margin-right: 10px;-webkit-app-region: no-drag; cursor: pointer;color:#2196F3;"><i class="material-icons">hearing</i></i>
+      <i title="菜单" onclick="settingsObj.showPanel()" href="#" data-target="slide-out" class="sidenav-trigger" style="margin-right: 10px;-webkit-app-region: no-drag;cursor: pointer;color:#2196F3;"><i class="material-icons">menu</i></i>
+      <i title="隐藏" href="#" id="tool-close-btn" style="-webkit-app-region: no-drag;cursor: pointer;color:#2196F3;"><i class="material-icons">remove</i></i>
+    </div>
+  </div>
+
+  <!-- 二次授权确认对话框-->
+  <div id="newaddauth-ack-modal" class="modal">
+    <div class="modal-content">
+      <div class="card-panel teal center-align" style="color: white;">
+        [<span id="newaddauth-ack-modal-selfname"></span>]&nbsp;想授权当前网元设备，是否同意？
+      </div>
+      <div class="right-align">
+        <a href="#!" onclick="mainObj.authackok()" class="waves-effect waves-green btn-small"><i class="material-icons right">insert_link</i>同意</a>
+        <a href="#!" onclick="" class="modal-close waves-effect waves-green btn-small">忽略</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 授权对话框-->
+  <div id="newaddauth-modal" class="modal">
+    <div class="modal-content">
+      <div class="card-panel teal center-align">
+        <div class="white-text" style="font-size: 24px;">
+          授权码：<span id="newaddauth-modal-key"></span>
+        </div>
+        <div style="font-size: 24px;" class="white-text">
+          验证码：<span id="newaddauth-modal-code"></span>
+        </div>
+        <div style="margin-top: 10px; color: #84e503;"><strong>千万不要告诉别人授权码和验证码</strong></div>
+      </div>
+      <div class="right-align">
+        <a href="#!" onclick="mainObj.copyauthstr()" class="waves-effect waves-green btn-small"><i class="material-icons right">content_copy</i>复制授权码<span id="newaddauth-modal-timeout"></span></a>
+        <a href="#!" onclick="" class="modal-close waves-effect waves-green btn-small">关闭</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 远程确认对话框-->
+  <div id="remote-ack-modal" class="modal">
+    <div class="modal-content center-align">
+      <p style="color: #2196f3 ;" id="remote-ack-modal-username">无敌存在</p>
+      <p>请求远程协助，是否同意？
+    </div>
+    <div class="modal-footer">
+      <a href="#!" onclick="remoteObject.remoteack('no')" class="modal-close waves-effect waves-red btn-flat">拒绝</a>
+      <a href="#!" onclick="remoteObject.remoteack('yes')" class="modal-close waves-effect waves-green btn-flat">同意(<span id="remote-ack-modal-ack-yes">0</span>)</a>
+    </div>
+  </div>
+
+  <!-- 登录界面 -->
+  <div id="login-panel" class="container hide">
+    <div>
+      <div class="row">
+        <div class="col s2"></div>
+        <div class="col s8" style="padding-top: 50px;">
+          <div class="progress">
+            <div class="indeterminate"></div>
+          </div>
+          <div class="center-align">连接中...</div>
+        </div>
+        <div class="col s2"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 主界面 -->
+  <div id="active-panel" class="hide">
+    <div class="center-align">
+      <i id="active-face-type" class="material-icons" style="font-size: 200px; color: #9e9e9e; cursor: pointer;">sentiment_very_satisfied</i>
+    </div>
+
+    <div id="active-remote-panel" class="active-panel-status hide" style="position: absolute; bottom: 40px; background-color:#e0f2f1; width: 100%; height: 40px; padding-top: 4px; padding-left: 10px;">
+      <div class="center-align">
+        <div class="chip" style="background-color: #26a69a;"><span style="color: white;"><span style="padding-left: 80px; padding-right: 80px; "><span id="active-remote-ing-name"></span>&nbsp;正在控制中</span> <i onclick="remoteObj.close()" id="acitve-remote-close-btn" title="点击关闭远程" class="material-icons" style="cursor:pointer; float:right; font-size: 16px; margin-top: 7px;">close</i></span></div>
+      </div>
+    </div>
+    <div class="active-panel-status" style="position: absolute; bottom: 0px; background-color:#b2dfdb; width: 100%; height: 40px; padding-top: 7px; padding-left: 10px;">
+      <div id="active-status-online" class=""><i class="material-icons dp48" style="color: #2196F3; vertical-align:-7px;">cloud</i>&nbsp;<span style="color:#2196F3">已连接上服务器</span></div>
+      <div id="active-status-offline" class="hide"><i class="material-icons dp48" style="color: red; vertical-align:-7px;">cloud_off</i>&nbsp;<span style="color: red;">正在连接中</span></div>
+      <div id="active-status-notification" style="position: absolute; right: 5px; top:9px; color: #2196F3; font-size: 14px;"></div>
+    </div>
+  </div>
+
+  <!-- 设置界面 -->
+  <div id="slide-out" class="sidenav">
+    <div style="background-color: #e0f2f1; width: 100%; height: 35px; padding-right: 10px; -webkit-app-region: drag;">
+      <div class="center-align" style="padding:5px;color:#2196F3">系统配置</div>
+      <i style="position: fixed; right: 0; z-index: 222; top:5px;-webkit-app-region: no-drag;cursor: pointer;color:#2196F3" onclick="settingsObj.closePanel()"><i class="material-icons dp48" style="pointer-events:none;">close</i></i>
+    </div>
+    <div class="row">
+      <div class="col s12">
+        <ul id="slide-out-tabs" class="tabs">
+          <li class="tab col s3"><a href="#sidenav-setting">基本配置</a></li>
+          <li class="tab col s3"><a href="#sidenav-authlist">授权管理</a></li>
+          <li class="tab col s3"><a href="#sidenav-about">关于</a></li>
+        </ul>
+      </div>
+      <div id="sidenav-setting" class="col s12" style="padding-left: 10px; padding-right: 10px;">
+        <form action="#">
+          <p>
+            <label>
+              <input id="setting-checkbox-autoremote" type="checkbox" checked="checked" onchange="settingsObj.onAutoRemote(this)" />
+              <span>自动接受远程协助</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input id="setting-checkbox-autorun" type="checkbox" checked="checked" onchange="settingsObj.onAutoRun(this)" />
+              <span>开机自启动</span>
+            </label>
+          </p>
+          <div class="input-field s12">
+            <input id="seeting-server-host" type="text">
+            <label for="seeting-server-host" class="">服务器地址</label>
+          </div>
+        </form>
+      </div>
+      <div id="sidenav-authlist" class="col s12" style="padding: 10px;">
+        <div>已授权服务器列表</div>
+        <div style="margin-top: 5px;" id="setting-auth-server-list"></div>
+      </div>
+      <div id="sidenav-about" class="col s12" style="padding: 10px; text-align: center;">
+        <p>本产品开源免费使用，持续更新。使用过程如果有问题请到GitHub进行提交BUG。</p>
+        <i id="setting-github-url" style="color:#2196F3; cursor: pointer;">点击打开官方GitHub</i>
+        <p>版本:V1.0.0</p>
+        <button onclick="settingsObj.opendevtools()" class=" waves-effect waves-light btn-small">打开调试工具</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="setting-auth-server-item-template" class="hide">
+    <div class="chip setting-auth-server-item" tid="{id}">
+      {title}<i class="close material-icons tooltipped" data-position="bottom" data-tooltip="确定解绑服务器关系？" type="{type}" tid="{id}" onclick="settingsObj.unAuthBtn(this)">close</i>
+    </div>
+  </div>
+
+  <script>window.$ = window.jQuery = require('./js/jquery-2.1.1.min.js') </script>
+  <script src="./js/jquery.aop.min.js"></script>
+  <script src="./js/materialize.js"></script>
+  <script src="./js/util.js"></script>
+  <script src="./js/http.js"></script>
+  <script src="./js/app/main.js"></script>
+  <script src="./js/app/settings.js"></script>
+  <script src="./js/app/tunnel.js"></script>
+  <script src="./js/app/auth.js"></script>
+  <script src="./js/app/pullmsg.js"></script>
+  <script src="./js/app/status.js"></script>
+  <script src="./js/app/remote.js"></script>
+</body>
+
+</html>
