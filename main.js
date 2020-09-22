@@ -13,10 +13,10 @@ function createWindow() {
 
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    // width: 620,
-    // height: 420,
-    width: 800,
-    height: 600,
+    width: 620,
+    height: 420,
+    //width: 800,
+    //height: 600,
     frame: false,
     resizable: false,
     show: false,
@@ -73,7 +73,7 @@ function createWindow() {
   ]);
   tray.setToolTip('百百-随时远程控制');
   tray.on('click', (one, two) => {
-    mainWindow.isVisible() ? mainWindow.minimize() : mainWindow.show()
+    mainWindow.restore();
   })
   tray.setContextMenu(contextMenu)
 }
