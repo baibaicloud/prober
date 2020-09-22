@@ -2,6 +2,15 @@
 const { app, BrowserWindow, ipcMain, Menu, Tray } = require('electron')
 const path = require('path')
 
+if (process.platform === 'linux') {
+  const execProcess = require('child_process');
+  execProcess.exec('chmod +x ' + __dirname + '/lib/linux-loonfrpc');
+  execProcess.exec('chmod +x ' + __dirname + '/lib/linux-loontunnelfrpc');
+  execProcess.exec('chmod +x ' + __dirname + '/lib/usr/bin/makepw.sh');
+  execProcess.exec('chmod +x ' + __dirname + '/lib/usr/bin/vncpasswd');
+  execProcess.exec('chmod +x ' + __dirname + '/lib/usr/bin/x0vncserver');
+}
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow

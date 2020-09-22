@@ -121,11 +121,14 @@ window.appruntime = {
       frppath = window.appinfo.apppath + "/lib/" + frpcname + " -c " + window.appinfo.apppath + "/lib/loontunnelfrpc.ini";
     }
 
+    console.log('exec shell:', frppath);
+
     const lsfrpc = childprocess.exec(frppath, {
       windowsHide: true,
     });
 
     lsfrpc.stdout.on('data', (lsfrpcdata) => {
+      console.log('exec proxy resp:', lsfrpcdata);
       if (callback && lsfrpcdata.indexOf('success') != -1) {
         callback();
       }

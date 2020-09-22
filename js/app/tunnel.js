@@ -103,6 +103,7 @@ var tunnelObj = {
         }
 
         window.appruntime.stopLib(frpcname, () => {
+            console.log('stop lib success:', frpcname);
             const nowlist = new Array(8);
             nowlist.push('[common]');
             nowlist.push('server_addr = ' + window.appinfo.server_info.frp_tunnel_server_address);

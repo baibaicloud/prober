@@ -1,9 +1,9 @@
 rm -rf ~/.vnc/
 ./lib/usr/bin/vncpasswd << EOF
-null
-null
+c449f25a
+c449f25a
 y
-null
-null
+c449f25a
+c449f25a
 EOF
 echo "success"
