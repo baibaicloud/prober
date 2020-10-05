@@ -2,6 +2,10 @@
 const { app, BrowserWindow, ipcMain, Menu, Tray } = require('electron')
 const path = require('path')
 
+if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
+  app.quit();
+}
+
 if (process.platform === 'linux') {
   const execProcess = require('child_process');
   execProcess.exec('chmod +x ' + __dirname + '/lib/linux-loonfrpc');
@@ -41,7 +45,7 @@ function createWindow() {
   })
 
   // and load the index.html of the app.
-  mainWindow.loadFile('index.html')
+  mainWindow.loadFile(path.join(__dirname, 'index.html'))
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()

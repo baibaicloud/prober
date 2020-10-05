@@ -18,7 +18,6 @@
 			option.error = function (e) { };
 		}
 
-		// 增加错误处理
 		if ($.aop && !option.skiperror) {
 			$.aop.before({ target: option, method: 'error' }, errorHandler);
 		}
@@ -29,7 +28,7 @@
 	$.httpSendForm = function (param) {
 		var id = param.formId;
 		if (!id) {
-			M.toast({ html: '请求失败', text: '请求参数[formId]缺少表单的id' });
+			M.toast({ html: '请求失败', text: '缺少表单id' });
 			return false;
 		}
 		if (id.indexOf("#") != 0) {
@@ -57,7 +56,6 @@
 			option.error = function (e) { };
 		}
 
-		// 增加错误处理
 		if ($.aop && !option.skiperror) {
 			$.aop.before({ target: option, method: 'error' }, errorHandler);
 		}
@@ -74,9 +72,9 @@
 	}
 
 	$.getUrlParam = function (name) {
-		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");//构造一个含有目标参数的正则表达式对象
-		var r = window.location.search.substr(1).match(reg);//匹配目标参数
-		if (r != null) return unescape(r[2]); return null;//返回参数值
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null) return unescape(r[2]); return null;
 	}
 
 })(jQuery);
