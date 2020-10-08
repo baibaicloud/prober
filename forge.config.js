@@ -2,7 +2,7 @@ const path = require('path')
 
 module.exports = {
     "packagerConfig": {
-        "name": "BB",
+        "name": "baibai",
         "appCopyright": "百百",
         "icon": path.join(__dirname, "src/icon.ico"),
         "asar": true,

@@ -3,7 +3,7 @@ const { BrowserWindow } = remote;
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
-const { machineIdSync } = require('node-machine-id');
+const si = require('systeminformation');
 const childprocess = require('child_process');
 const log = require('electron-log');
 const Config = require('electron-config');
@@ -43,10 +43,18 @@ window.addEventListener('DOMContentLoaded', () => {
     window.appruntime.setAutorun(true);
   }
 
+  si.uuid(function (resp) {
+    readyapp(resp.os);
+  });
+})
+
+function readyapp(uuid) {
+
+  console.log('app sn:', uuid);
   window.appinfo = {
     ostype: os.platform(),
     hostname: os.hostname(),
-    sn: machineIdSync(),
+    sn: uuid,
     apppath: __dirname,
     rooturl: config.get('rooturl'),
     frp_admin_addr: config.get('frp_admin_addr'),
@@ -68,8 +76,7 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     }
   }
-
-})
+}
 
 window.appruntime = {
   opendevtools() {
