@@ -5,7 +5,6 @@ module.exports = {
         "name": "baibai",
         "appCopyright": "百百",
         "icon": path.join(__dirname, "src/icon.ico"),
-        "asar": true,
         "overwrite": true
     },
     "makers": [
