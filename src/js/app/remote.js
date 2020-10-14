@@ -37,7 +37,7 @@ var remoteObj = {
                 window.appruntime.stopLib("x0vncserver", () => {
                     const nowlist = new Array(0);
                     nowlist.push('rm -rf ~/.vnc/');
-                    nowlist.push('./lib/usr/bin/vncpasswd << EOF');
+                    nowlist.push(window.appinfo.apppath + '/lib/usr/bin/vncpasswd << EOF');
                     nowlist.push(data.password);
                     nowlist.push(data.password);
                     nowlist.push('y');
