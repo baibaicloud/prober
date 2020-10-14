@@ -24,12 +24,9 @@ app.setAppUserModelId('百百');
 
 function createWindow() {
 
-  // Create the browser window.
-  mainWindow = new BrowserWindow({
+  const windowOptions = {
     width: 620,
     height: 420,
-    //width: 800,
-    //height: 600,
     frame: false,
     resizable: false,
     show: false,
@@ -38,7 +35,13 @@ function createWindow() {
       enableRemoteModule: true,
       preload: path.join(__dirname, 'preload.js')
     }
-  })
+  }
+
+  if (process.platform === 'linux') {
+    windowOptions.icon = path.join(__dirname, '/icon.png')
+  }
+
+  mainWindow = new BrowserWindow(windowOptions)
 
   mainWindow.on('ready-to-show', function () {
     mainWindow.show();
