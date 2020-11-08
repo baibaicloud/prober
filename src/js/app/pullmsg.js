@@ -26,6 +26,9 @@ var pullMsgObj = {
             case 'TUNNEL_REFRESH_LIST':
                 tunnelObj.loadProxy(true);
                 break;
+            case 'DOWNLOAD_FILE':
+                filesObj.nowDownload(msg.body);
+                break;
         }
     },
     pull: function () {
