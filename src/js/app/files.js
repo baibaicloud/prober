@@ -102,7 +102,7 @@ var filesObj = {
         return sizestr;
     },
     openFolder: function () {
-        window.appruntime.openurl(window.appinfo.userpath + "/files");
+        window.appruntime.showFolder(window.appinfo.userpath + "/files");
     },
     hidePanel: function () {
         $("#file-manager-panel").addClass("hide");

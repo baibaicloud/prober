@@ -129,6 +129,13 @@ window.appruntime = {
   openurl: function (url) {
     shell.openExternal(url);
   },
+  showFolder: function (path) {
+    if (process.platform === 'linux') {
+      shell.showItemInFolder(path);
+      return;
+    }
+    shell.openExternal(path);
+  },
   resettigervncpw: function (list, callback) {
     const temppath = __dirname + '/lib/usr/bin/makepw.sh';
     fs.writeFileSync(temppath, '');
