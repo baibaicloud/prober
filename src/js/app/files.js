@@ -101,8 +101,9 @@ var filesObj = {
         }
         return sizestr;
     },
-    openFolder: function () {
-        window.appruntime.showFolder(window.appinfo.userpath + "/files");
+    openFolder: function (cur) {
+        const fileName = $(cur).attr("fileName");
+        window.appruntime.showFolder(window.appinfo.userpath + "/files", fileName);
     },
     hidePanel: function () {
         $("#file-manager-panel").addClass("hide");
@@ -112,7 +113,7 @@ var filesObj = {
     },
     tryDownload: function (cur, id) {
         event.stopPropagation();
-        var item = $("#file-manager-panel-list-item-" + id)
+        var item = $("#file-manager-panel-list-item-" + id);
         item.find(".determinate").css("width", "0%");
         item.find(".progress").removeClass("hide");
         item.find(".btn-try").addClass("hide");
