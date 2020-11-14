@@ -16,17 +16,8 @@ module.exports = {
             }
         },
         {
-            "name": "@electron-forge/maker-deb",
+            "name": "@electron-forge/maker-zip",
             "config": {
-                "icon": path.join(__dirname, "src/icon.ico"),
-                "iconUrl": path.join(__dirname, "src/img/baibai.ico"),
-            }
-        },
-        {
-            "name": "@electron-forge/maker-rpm",
-            "config": {
-                "icon": path.join(__dirname, "src/img/baibai.ico"),
-                "loadingGif": path.join(__dirname, "src/img/loading.gif")
             }
         }
     ]

@@ -1,7 +1,7 @@
 
 var remoteObj = {
     getremoteing: false,
-
+    curData: null,
     /**
      * 开始远程
      * @param {*} data 
@@ -23,6 +23,7 @@ var remoteObj = {
                         };
                         window.appruntime.startfrp(env, () => {
                             window.appruntime.startvnc(() => {
+                                remoteObj.curData = data;
                                 remoteObj.showRemoteUI(data.selfname);
                                 remoteObj.remoteAckReady(data.ackuuid);
                             });
@@ -59,6 +60,7 @@ var remoteObj = {
                         // 这里启动要分win和linux
                         window.appruntime.startfrp(env, () => {
                             window.appruntime.startlinuxvnc(() => {
+                                remoteObj.curData = data;
                                 remoteObj.showRemoteUI(data.selfname);
                                 remoteObj.remoteAckReady(data.ackuuid);
                             });
@@ -93,6 +95,7 @@ var remoteObj = {
      * 关闭远程
      */
     close: function () {
+        remoteObj.curData = null;
         $("#active-remote-panel").addClass("hide");
 
         if (process.platform === 'win32') {

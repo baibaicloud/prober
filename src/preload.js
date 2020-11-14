@@ -1,12 +1,16 @@
 const { ipcRenderer, clipboard, remote, shell } = require('electron');
 const { BrowserWindow } = remote;
 const path = require('path');
+const Buffer = require('buffer').Buffer;
 const fs = require('fs');
 const os = require('os');
 const si = require('systeminformation');
 const childprocess = require('child_process');
 const log = require('electron-log');
 const Config = require('electron-config');
+const axios = require('axios');
+axios.defaults.adapter = require('axios/lib/adapters/http');
+const axios2 = require('axios');
 const config = new Config();
 const rooturl = 'http://192.168.0.100:8080/';
 
@@ -56,10 +60,21 @@ function readyapp(uuid) {
     hostname: os.hostname(),
     sn: uuid,
     apppath: __dirname,
+    userpath: remote.app.getPath('userData'),
     rooturl: config.get('rooturl'),
     frp_admin_addr: config.get('frp_admin_addr'),
     frp_admin_port: config.get('frp_admin_port'),
     frp_check_admin_address: config.get('frp_check_admin_address'),
+  }
+
+  try {
+    fs.statSync(window.appinfo.userpath + "/files");
+  } catch (error) {
+    fs.mkdir(window.appinfo.userpath + "/files", function (error) {
+      if (error) {
+        console.log(error);
+      }
+    });
   }
 
   authObj.init();
@@ -79,6 +94,26 @@ function readyapp(uuid) {
 }
 
 window.appruntime = {
+  async downloadFile(url, filePath, fileName, onprogress, onsuccess, onerror) {
+    try {
+      const mypath = path.resolve(filePath, fileName);
+      const writer = fs.createWriteStream(mypath);
+      const response = await axios({
+        url,
+        method: 'GET',
+        responseType: 'stream',
+      });
+      response.data.on('data', chunk => {
+        onprogress(chunk.length);
+      });
+      response.data.pipe(writer);
+      writer.on("finish", onsuccess);
+      writer.on("error", onerror);
+    } catch (error) {
+      console.log(error);
+      onerror(error);
+    }
+  },
   opendevtools() {
     ipcRenderer.send('event-open-devtools', '');
   },
@@ -93,6 +128,10 @@ window.appruntime = {
   },
   openurl: function (url) {
     shell.openExternal(url);
+  },
+  showFolder: function (rootPath, fileName) {
+    const fullpath = path.join(rootPath, fileName);
+    shell.showItemInFolder(fullpath);
   },
   resettigervncpw: function (list, callback) {
     const temppath = __dirname + '/lib/usr/bin/makepw.sh';

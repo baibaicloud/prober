@@ -22,7 +22,6 @@ body{
   -moz-user-select:none;
   -ms-user-select:none;
   user-select:none;
-  /* -webkit-app-region: drag; */
 }
 
 .tabs .tab a {
@@ -51,4 +50,97 @@ body{
 
 .setting-auth-server-item .close:hover {
 	color:red;
+}
+
+#file-manager-panel {
+  position: absolute;
+  background-color:  #d8d9fb;
+  z-index: 10;
+  top: 30px;
+  bottom: 100px;
+  right: 0px;
+  left: 0px;
+  margin: 20px;
+  border-radius: 5px;
+}
+
+.file-manager-panel-close-button-panel {
+  position: absolute;
+  bottom:-30px;
+  width: 100%;
+  text-align: center;
+}
+
+.file-manager-panel-clean-button {
+  color: red;
+  cursor: pointer;
+}
+
+.file-manager-panel-clean-button:hover {
+  color:#cc3c3c;
+}
+
+.file-manager-panel-close-button {
+  color: #2196F3;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.file-manager-panel-close-button:hover {
+  color:#719cbd;
+}
+
+.file-manager-panel-list {
+  height: 245px;
+}
+
+.file-manager-panel-list-item {
+  margin: 5px;
+  padding: 5px;
+  background-color: white;
+  border-radius: 5px;
+  color: #592DA1;
+}
+
+.file-manager-panel-list-item-error {
+  color: red;
+}
+
+.file-manager-panel-list-item-success {
+  cursor:pointer;
+}
+
+.file-manager-panel-list-item .progress {
+  margin: 0px;
+}
+
+.file-manager-panel-list-item .btn-try{
+  float: right;
+  cursor:pointer;
+  margin-top: -22px;
+}
+
+.file-manager-panel-list-empty {
+  text-align: center;
+  padding-top: 100px;
+  color: #592DA1;
+}
+
+#file-upload-manager-panel {
+  position: absolute;
+  background-color:  #ebebf5;
+  z-index: 11;
+  top: 30px;
+  right: 20px;
+  left: 20px;
+  margin: 20px;
+  border-radius: 5px;
+}
+
+.file-upload-manager-panel-list-item {
+  margin: 5px;
+  padding: 5px;
+  background-color: white;
+  border-radius: 5px;
+  color: #592DA1;
 }

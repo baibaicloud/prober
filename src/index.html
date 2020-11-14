@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html id="html" lang="en">
 
 <head>
   <meta charset="UTF-8">
@@ -21,6 +21,7 @@
     </div>
     <div class="right-align">
       <i id="newaddauth-modal-btn" title="设备授权" href="#newaddauth-modal" class="modal-trigger" style="margin-right: 10px;-webkit-app-region: no-drag; cursor: pointer;color:#2196F3;"><i class="material-icons">hearing</i></i>
+      <i title="文件列表" onclick="filesObj.showPanel()" style="margin-right: 10px;-webkit-app-region: no-drag;cursor: pointer;color:#2196F3;"><i class="material-icons">library_books</i></i>
       <i title="菜单" onclick="settingsObj.showPanel()" href="#" data-target="slide-out" class="sidenav-trigger" style="margin-right: 10px;-webkit-app-region: no-drag;cursor: pointer;color:#2196F3;"><i class="material-icons">menu</i></i>
       <i title="隐藏" href="#" id="tool-close-btn" style="-webkit-app-region: no-drag;cursor: pointer;color:#2196F3;"><i class="material-icons">remove</i></i>
     </div>
@@ -104,6 +105,46 @@
     </div>
   </div>
 
+  <!-- 文件上传管理界面 -->
+  <div id="file-upload-manager-panel">
+    <div id="file-upload-manager-panel-list" class="file-upload-manager-panel-list"></div>
+  </div>
+
+  <!-- 文件上传管理界面item -->
+  <div id="file-upload-manager-panel-list-template" class="hide">
+    <div id="file-upload-manager-panel-list-item-{id}" class="file-upload-manager-panel-list-item">
+      <div>{name}</div>
+      <div class="progress" style="margin: 0px;">
+        <div class="determinate" style="width: 0%"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 文件下载管理界面 -->
+  <div id="file-manager-panel" class="hide">
+    <div class="file-manager-panel-close-button-panel">
+      <i onclick="filesObj.cleanFileList()" title="清空文件列表" class="material-icons file-manager-panel-clean-button">delete_sweep</i>
+      <i onclick="filesObj.hidePanel()" title="关闭文件列表" class="material-icons file-manager-panel-close-button">cancel</i>
+    </div>
+
+    <div id="file-manager-panel-list" class="file-manager-panel-list">
+      <div id="file-manager-panel-list-empty" class="file-manager-panel-list-empty">无文件</div>
+    </div>
+  </div>
+
+  <!-- 文件下载管理界面item -->
+  <div id="file-manager-panel-list-item-template" class="hide">
+    <div onclick="filesObj.openFolder(this)" id="file-manager-panel-list-item-{id}" class="file-manager-panel-list-item file-manager-panel-list-item-success">
+      <div>{name}</div>
+      <div class="progress hide">
+        <div class="determinate" style="width: 0%"></div>
+      </div>
+      <div class="btn-try hide">
+        <a onclick="filesObj.tryDownload(this,'{tryid}')">下载失败-点击重试</a>
+      </div>
+    </div>
+  </div>
+
   <!-- 设置界面 -->
   <div id="slide-out" class="sidenav">
     <div style="background-color: #e0f2f1; width: 100%; height: 35px; padding-right: 10px; -webkit-app-region: drag;">
@@ -146,7 +187,7 @@
         <p>基于web的远程控制，无任何插件。协议支持vnc，rdp，ssh。支持内外穿透、四层协议代理。</p>
         <p>使用过程如果有问题请到GitHub进行提交BUG。</p>
         <i id="setting-github-url" style="color:#2196F3; cursor: pointer;">点击打开官方GitHub</i>
-        <p>版本:V1.1.0</p>
+        <p>版本:V1.2.0</p>
         <button onclick="settingsObj.opendevtools()" class="hide waves-effect waves-light btn-small">打开调试工具</button>
       </div>
     </div>
@@ -160,6 +201,7 @@
 
   <script>window.$ = window.jQuery = require('./js/jquery-2.1.1.min.js') </script>
   <script src="./js/jquery.aop.min.js"></script>
+  <script src="./js/jquery.nicescroll.min.js"></script>
   <script src="./js/materialize.js"></script>
   <script src="./js/util.js"></script>
   <script src="./js/http.js"></script>
@@ -170,6 +212,7 @@
   <script src="./js/app/pullmsg.js"></script>
   <script src="./js/app/status.js"></script>
   <script src="./js/app/remote.js"></script>
+  <script src="./js/app/files.js"></script>
 </body>
 
 </html>

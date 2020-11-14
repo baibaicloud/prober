@@ -27,6 +27,8 @@ function createWindow() {
   const windowOptions = {
     width: 620,
     height: 420,
+    //width: 800,
+    //height: 600,
     frame: false,
     resizable: false,
     show: false,
