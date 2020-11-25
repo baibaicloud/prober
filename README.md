@@ -3,6 +3,8 @@
 
 当前项目是客户端，服务端[代码](https://github.com/baibaicloud/platform)https://github.com/baibaicloud/platform
 
+[官网地址http://bb.app-yun.com/](http://bb.app-yun.com/)
+
 # 运行
 npm i
 
