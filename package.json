@@ -38,6 +38,6 @@
     "electron-log": "4.2.4",
     "electron-squirrel-startup": "1.0.0",
     "md5": "2.3.0",
-    "systeminformation": "^4.27.8"
+    "systeminformation": "^5.3.1"
   }
 }
