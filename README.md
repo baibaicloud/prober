@@ -5,6 +5,9 @@
 
 [官网地址http://bb.app-yun.com/](http://bb.app-yun.com/)
 
+# 本项目已迁移到gitee上
+# [gitee地址https://gitee.com/baibaiclouds/prober](https://gitee.com/baibaiclouds/prober)
+
 # 运行
 npm i
 
